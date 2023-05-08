@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for dil-responsive-client",
+  "main": "Server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "build": "build"
+  },
+  "author": "TejasG",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.9",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.1.0",
+    "nodemon": "^2.0.22",
+    "to": "^0.2.9",
+    "update": "^0.7.4"
+  }
+}
