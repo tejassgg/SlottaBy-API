@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const config = require("config");
 const User = require("../models/user");
 const Event = require("../models/events");
 const timingData = require("../masterData/masterTimingData.json");
