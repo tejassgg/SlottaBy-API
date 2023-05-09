@@ -2,8 +2,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const config = require("config");
+const mongoose = require("mongoose");
 
 const User = require("../models/user");
+const Event = require("../models/events");
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;
@@ -16,6 +18,18 @@ const loginController = async (req, res) => {
         return res
           .status(200)
           .json({ message: "User doesn't exist..!!", success: false });
+    }
+
+    console.log(ExistingUser);
+
+    if (!ExistingUser.isApproved) {
+      return res
+        .status(200)
+        .json({
+          message:
+            "Account not approved from admin. Please contact system administartor. ",
+          success: false,
+        });
     }
 
     const isPasswordOk = await bcrypt.compare(password, ExistingUser.password);
@@ -43,7 +57,7 @@ const loginController = async (req, res) => {
       profilePicture: ExistingUser.profilePicture,
       userName: ExistingUser.userName,
       role: ExistingUser.role,
-      isApproved:ExistingUser.isApproved
+      isApproved: ExistingUser.isApproved,
     };
 
     res.status(200).json({
@@ -115,11 +129,15 @@ const registerController = async (req, res) => {
           success: false,
         });
       else {
-        const LexistingUser = await User.findOne({ profileColor: profileColor });
+        const LexistingUser = await User.findOne({
+          profileColor: profileColor,
+        });
         if (UexistingUser)
           return res.status(200).json({
             message:
-              "Profile Color ("+ profileColor +") already in use. Please choose another profileColor.",
+              "Profile Color (" +
+              profileColor +
+              ") already in use. Please choose another profileColor.",
             success: false,
           });
       }
@@ -136,7 +154,7 @@ const registerController = async (req, res) => {
       profileColor,
       userName,
       role: "user",
-      isApproved: false
+      isApproved: false,
     });
 
     if (result !== null) {
@@ -147,8 +165,8 @@ const registerController = async (req, res) => {
         userName: result.userName,
         profilePicture: result.profilePicture,
         profileColor: result.profileColor,
-        role:result.role,
-        isApproved: result.isApproved
+        role: result.role,
+        isApproved: result.isApproved,
       };
       const token = jwt.sign(
         {
@@ -169,7 +187,85 @@ const registerController = async (req, res) => {
   }
 };
 
+const getAdminDataController = async (req, res) => {
+  try {
+    const usersResult = [];
+    const eventsResult = [];
+
+    const userDataList = await User.find({}).sort({ role: 1 });
+    const eventDataList = await Event.find({});
+    
+    userDataList.forEach((result) => {
+      const userData = {
+        email: result.email,
+        firstName: result.firstName,
+        lastName: result.lastName,
+        userName: result.userName,
+        profilePicture: result.profilePicture,
+        profileColor: result.profileColor,
+        role: result.role,
+        isApproved: result.isApproved,
+        _id:result._id
+      };
+      usersResult.push(userData);
+    });
+
+    eventDataList.forEach((ele) => {
+      const eventData = {
+        id: ele.id,
+        userName: ele.userName,
+        slotStartTime: ele.slotStartTime,
+        slotEndTime: ele.slotEndTime,
+        description: ele.description,
+        day: ele.day,
+        label: ele.label,
+        punchInTime: ele.punchInTime,
+        punchOutTime: ele.punchOutTime,
+        createdDate: ele.createdDate,
+        machineryID: ele.machineryID,
+        slotDay: ele.slotDay,
+        _id: ele._id,
+      };
+      eventsResult.push(eventData);
+    });
+
+    return res
+      .status(200)
+      .json({
+        message: "Data Fetched Sucessfully..!!",
+        usersResult: usersResult,
+        eventsResult: eventsResult,
+        success: true,
+      });
+  } catch (error) {
+    return res
+      .status(200)
+      .json({ message: "Something Went Wrong..!! + " + error, success: false });
+  }
+};
+
+const submitApprovalController = async (req, res) => {
+  const { _id } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+      return res
+        .status(200)
+        .json({ message: "No event with this ID.", success: false });
+
+  const resultIN = await User.updateOne(
+    { _id: _id },
+    { $set: { isApproved: true } }
+  );
+
+  if (resultIN.modifiedCount >= 1)
+    return res
+      .status(200)
+      .json({ message: "User Approved Successfully..!", success: true });
+};
+
 module.exports = {
   loginController,
   registerController,
+  getAdminDataController,
+  submitApprovalController,
 };

@@ -1,18 +1,126 @@
 [
     {
-        "label": "Pervoskite Laminator",
+        "label": "2P Mbraun",
         "value": 1
     },
     {
-        "label": "Solar Printer",
+        "label": "4P Mbraun",
         "value": 2
     },
     {
-        "label": "Dual Chamber HydroPhonic Coating",
+        "label": "2-inch Sputtering System",
         "value": 3
     },
     {
-        "label": "4 Hand Glove Box",
+        "label": "3-inch Sputtering System",
         "value": 4
+    },
+    {
+        "label": "ALD Alumina System",
+        "value": 5
+    },
+    {
+        "label": "Chemical Bench Weighing Scale",
+        "value": 6
+    },
+    {
+        "label": "Chemical Bench Spin Coater",
+        "value": 7
+    },
+    {
+        "label": "Cryostat",
+        "value": 8
+    },
+    {
+        "label": "Danvec",
+        "value": 9
+    },
+    {
+        "label": "Environment Test chamber",
+        "value": 10
+    },
+    {
+        "label": "EQE",
+        "value": 11
+    },
+    {
+        "label": "Fume Hood",
+        "value": 12
+    },
+    {
+        "label": "General Evaporator",
+        "value": 13
+    },
+    {
+        "label": "Gold Evaporator",
+        "value": 14
+    },
+    {
+        "label": "IKA Hotplate",
+        "value": 15
+    },
+    {
+        "label": "InGa System",
+        "value": 16
+    },
+    {
+        "label": "Inkjet Printer",
+        "value": 17
+    },
+    {
+        "label": "Laminator",
+        "value": 18
+    },
+    {
+        "label": "Laser Scriber",
+        "value": 19
+    },
+    {
+        "label": "LBIC",
+        "value": 20
+    },
+    {
+        "label": "Muffle Furnace",
+        "value": 21
+    },
+    {
+        "label": "Programmable Hotplate",
+        "value": 22
+    },
+    {
+        "label": "Roll-to-Roll Coater",
+        "value": 23
+    },
+    {
+        "label": "Screen Printer",
+        "value": 24
+    },
+    {
+        "label": "Slot-die Coater",
+        "value": 25
+    },
+    {
+        "label": "Solar Simulator",
+        "value": 26
+    },
+    {
+        "label": "UV1",
+        "value": 27
+    },
+    {
+        "label": "UV2",
+        "value": 28
+    },
+    {
+        "label": "UV3",
+        "value": 29
+    },
+    {
+        "label": "UV3",
+        "value": 30
+    },
+    {
+        "label": "Wavelabs System",
+        "value": 31
     }
 ]
