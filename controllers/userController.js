@@ -20,8 +20,6 @@ const loginController = async (req, res) => {
           .json({ message: "User doesn't exist..!!", success: false });
     }
 
-    console.log(ExistingUser);
-
     if (!ExistingUser.isApproved) {
       return res
         .status(200)
